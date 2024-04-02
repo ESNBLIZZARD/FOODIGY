@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM  from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -7,13 +7,21 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import ResturantMenu from "./components/ResturantMenu";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
+
+const Grocery = lazy(() => import("./components/Grocery"));     //Dynamic Bundling or Chunking or Lazy Loading or Code Splitting
+
 
 const AppLayout = () => {
     return (
+        <Provider store={appStore}>
         <div className="app">
             <Header/>
             <Outlet/>
         </div>
+        </Provider>
     );
 };
 
@@ -27,6 +35,10 @@ const appRouter = createBrowserRouter([
                 element: <Body/>,
             },
             {
+                path: "/cart",
+                element: <Cart/>,
+            },
+            {
                 path: "/about",
                 element: <About/>,
             },
@@ -34,10 +46,14 @@ const appRouter = createBrowserRouter([
                 path: "/contact",
                 element: <Contact/>,
             },
-            // {
-            //     path: "/resturant/: resId",
-            //     element: <ResturantMenu />,
-            // },
+            {
+                path: "/grocery",
+                element: <Suspense fallback = {<h1>Loading...</h1>}><Grocery/></Suspense>,
+            },
+            {
+                path: "/resturant/:resId",
+                element: <ResturantMenu />,
+            },
         ],
         errorElement: <Error/>,
     },
