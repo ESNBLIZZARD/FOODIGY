@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/ESNBLIZZARD/Namaste-React/issues"
   },
-  "homepage": "https://github.com/ESNBLIZZARD/Namaste-React#readme",
+  "homepage": "https://esnblizzard.github.io/FOODIGY",
   "devDependencies": {
     "gh-pages": "^6.1.1",
     "parcel": "^2.12.0",
